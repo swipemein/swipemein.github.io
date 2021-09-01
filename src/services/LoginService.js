@@ -6,8 +6,8 @@ class LoginService {
   static clientID = "8fbfe55e-51b6-40df-a8e2-0a38690e2a9f";
   static responseType = "code";
   static scope = "openid profile email";
-  // static redirectURI = "https://swipemein.github.io/";
-  static redirectURI = getURL() + "/token";
+  static redirectURI = "https://swipemein.github.io/";
+  // static redirectURI = getURL() + "/token";
 
   // Get url to redirect to OIDC to authenticate
   static getRedirectUrl() {
@@ -30,6 +30,9 @@ class LoginService {
   // Log in with code returned from OIDC
   static login(code) {
     console.log(code);
+    fetch(getURL() + '/token?code=' + code).then(
+			response => response.json()
+		).then(data => console.log(data));
   }
   
   static requestToken(code) {
