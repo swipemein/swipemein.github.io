@@ -1,0 +1,147 @@
+  
+@import url(https://fonts.googleapis.com/css?family=Merriweather&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Vollkorn&display=swap);
+body{
+    margin:0;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    font-family:"Merriweather",serif
+}
+code{
+    font-family:source-code-pro,Menlo,Monaco,Consolas,"Courier New",monospace
+}
+
+a {
+    color: rgb(196, 30, 58);
+}
+
+nav {
+    /* background-color: grey; */
+    /* background-color: rgb(196, 30, 58, .9); */
+    color: rgb(196, 30, 58);
+}
+
+.nav-link {
+    color: rgb(196, 30, 58) !important;
+}
+
+.btn-primary {
+    background-color: rgb(196, 30, 58);
+    border-color: rgb(196, 30, 58);
+}
+
+.btn-primary:disabled {
+    background-color: rgb(196, 30, 58);
+    border-color: rgb(196, 30, 58);
+}
+
+.card-subtitle {
+    color: black;
+}
+
+.card-body > a {
+    color: rgb(196, 30, 58);
+    margin: 1rem;
+}
+
+.swipecard {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filterheader {
+    color: rgb(196, 30, 58);
+}
+
+.homephotos {
+    padding: 0;
+    background-image: url("./assets/housedining.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    height: calc(100vh - 56px);
+    width: 100%;
+}
+
+.hometitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+}
+
+.hometitle > h2 {
+    color: rgba(196, 30, 58, .8);
+    /* font-size: 8rem; */
+    font-size: 16vw;
+}
+
+.homeinfo {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homedescription {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.homedescription > .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.homedescription > .homedirections {
+    flex-direction: row;
+}
+
+
+.homedescription > .container > h3 {
+    text-align: center;
+    margin-top: 16px;
+    margin-block-end: 16px;
+    color: rgb(196, 30, 58);
+    /* color: rgb(160, 82, 45); */
+}
+
+.homedirections {
+    text-align: center;
+}
+
+.homedirections > .card {
+    display: block;
+}
+
+.homedirections > .col > .card > .card-body > .card-title {
+    color: rgb(196, 30, 58);
+    /* color: rgb(160, 82, 45); */
+}
+
+#addswipebutton {
+    width:100%;
+}
+
+#middashboard {
+    margin: 0;
+    padding: 0;
+}
+
+#profilefooter {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#profilefooter > .col-xs-4 {
+    justify-content: left;
+    width: 50%;
+}
+
+body {
+    color: grey;
+    /* background-color: rgb(196, 30, 58, .9); */
+}
