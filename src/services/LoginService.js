@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom';
 import { getURL } from '../Utils';
 
 class LoginService {
-  static clientID = "8fbfe55e-51b6-40df-a8e2-0a38690e2a9f";
+  static clientID = "1f9c2c3c-b83e-430d-9420-d9181c7a7904";
   static responseType = "code";
   static scope = "openid profile email";
   static redirectURI = "https://swipemein.github.io/";
