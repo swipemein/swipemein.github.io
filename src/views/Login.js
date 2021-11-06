@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import SwipeNav from '../components/Nav.js';
 
+import { getURL } from '../Utils.js';
+
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,12 +11,40 @@ export default class Login extends Component {
 
   submitLogin() {
     let email = document.getElementById('login-email').value;
-    let password = document.getElementById('login-pw').value;
+    let pw = document.getElementById('login-pw').value;
+
+    fetch(getURL() + '/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: email,
+        password: pw,
+      })
+    }).then(r => {
+      console.log(r);
+    }).catch(e => {
+      console.log(e);
+    });
   }
 
   submitSignup() {
     let email = document.getElementById('signup-email').value;
-    let password = document.getElementById('signup-pw').value;
+    let pw = document.getElementById('signup-pw').value;
+
+    fetch(getURL() + '/createprofile', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: email,
+        password: pw,
+      })
+    }).then(r => {
+      console.log(r);
+    }).catch(e => {
+      console.log(e);
+    });
   }
 
   render() {
