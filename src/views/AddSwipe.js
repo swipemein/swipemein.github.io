@@ -36,7 +36,16 @@ export default class AddSwipe extends Component {
       swipeTime: swipeTime,
     }
 
-    fetch(getURL() + '/addswipe?data=' + JSON.stringify(swipe), {method: 'POST'}).then(response => {
+    fetch(
+      getURL() + '/addswipe?data=' + JSON.stringify(swipe),
+			{
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(response => {
       console.log(response.status);
       if (response.status === 500) {
         alert("Internal 500 error: couldn't add swipe.");

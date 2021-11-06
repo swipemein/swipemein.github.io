@@ -19,7 +19,15 @@ export default class SwipeView extends Component {
     let hashes = window.location.hash.split("/");
     let swipeID = hashes[hashes.length - 1];
 
-    fetch(getURL() + '/getswipe?id=' + swipeID).then(
+    fetch(
+      getURL() + '/getswipe?id=' + swipeID,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(
       response => response.json()
     ).then(
       data => {
