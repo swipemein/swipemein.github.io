@@ -7,6 +7,7 @@ import Dashboard from './views/Dashboard';
 import SwipeView from './views/SwipeView';
 import AddSwipe from './views/AddSwipe';
 import WebpageNotFound from './views/404.js';
+import Login from './views/Login';
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
         )} />
         <Route exact={true} path='/addswipe' render={() => (
           <AddSwipe />
+        )} />
+        <Route exact={true} path='/login' render={() => (
+          <Login />
         )} />
         <Route path="*" exact={true} render={() => (
           <WebpageNotFound />

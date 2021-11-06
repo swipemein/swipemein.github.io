@@ -21,7 +21,7 @@ export default class SwipeNav extends Component {
     if (!this.state.loggedIn) {
       navbarItems = (
         <>
-          <rb.Nav.Link href={LoginService.getRedirectUrl()}>Login</rb.Nav.Link>
+          <rb.Nav.Link href='/#/login'>Login</rb.Nav.Link>
         </>
       );
     } else {

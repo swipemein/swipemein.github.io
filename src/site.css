@@ -145,3 +145,11 @@ body {
     color: grey;
     /* background-color: rgb(196, 30, 58, .9); */
 }
+
+.loginform {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    /* align-items: center; */
+    /* justify-content: center; */
+}
