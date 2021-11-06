@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import SwipeNav from '../components/Nav.js';
 
@@ -30,6 +30,9 @@ class Login extends Component {
   }
 
   render() {
+    if (LoginService.isLoggedIn()) {
+      return <Redirect to='/dashboard' />
+    }
 		return (
 			<>
 				<SwipeNav />
