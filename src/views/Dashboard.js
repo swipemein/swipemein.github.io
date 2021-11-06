@@ -32,7 +32,15 @@ export default class Dashboard extends Component {
 	}
 
 	getSwipes(form={}) {
-		fetch(getURL() + '/getswipes?filters=' + JSON.stringify(form)).then(
+		fetch(
+			getURL() + '/getswipes?filters=' + JSON.stringify(form),
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+		).then(
 			response => response.json()
 		).then(data => {
 			let swipeDatas = sortBySwipeTime(Object.values(data));
