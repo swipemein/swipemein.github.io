@@ -8,17 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../site.css';
 
 export default class SwipeNav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: !(localStorage.getItem(process.env.REACT_APP_SUB_ID) === null)
-    }
-  }
-
   render() {
-
     let navbarItems;
-    if (!this.state.loggedIn) {
+    if (!LoginService.isLoggedIn()) {
       navbarItems = (
         <>
           <rb.Nav.Link href='/#/login'>Login</rb.Nav.Link>
@@ -27,8 +19,8 @@ export default class SwipeNav extends Component {
     } else {
       navbarItems = (
         <>
-          <rb.Nav.Link href='/#/dashboard'>Dashboard</rb.Nav.Link>
-          <rb.Nav.Link href='/#/profile'>Profile</rb.Nav.Link>
+          {/* <rb.Nav.Link href='/#/dashboard'>Dashboard</rb.Nav.Link>
+          <rb.Nav.Link href='/#/profile'>Profile</rb.Nav.Link> */}
           <rb.Nav.Link href='/' onClick={() => LoginService.logOut()}>Logout</rb.Nav.Link>
         </>
       );

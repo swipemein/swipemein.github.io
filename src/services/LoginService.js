@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 // import { getURL } from '../Utils';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -21,28 +21,55 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const auth = getAuth();
 
 class LoginService {
 
-  static createProfile(email, password) {
-    createUserWithEmailAndPassword(auth, email, password)
+  static async createProfile(email, password) {
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
+        const token = userCredential._tokenResponse.idToken;
+        LoginService.storeToken(token);
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
+  static async logIn(email, password) {
+    await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const token = userCredential._tokenResponse.idToken;
+      LoginService.storeToken(token);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
   
   static logOut() {
-    localStorage.removeItem(process.env.REACT_APP_SUB_ID);
+    signOut(auth).then(() => {
+      LoginService.removeToken();
+    }).catch(error => {
+      console.log('error signing out');
+    });
   }
 
   static isLoggedIn() {
-    return true;
-    return localStorage.getItem(process.env.REACT_APP_SUB_ID) !== null;
+    return LoginService.getToken() !== undefined && LoginService.getToken() !== null;
+  }
+
+  static storeToken(token) {
+    localStorage.setItem('idToken', token);
+  }
+
+  static removeToken() {
+    localStorage.removeItem('idToken');
+  }
+
+  static getToken() {
+    return localStorage.getItem('idToken');
   }
 
   static redirectLogin() {
