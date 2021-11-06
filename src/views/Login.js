@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SwipeNav from '../components/Nav.js';
 
+import LoginService from '../services/LoginService.js';
 import { getURL } from '../Utils.js';
 
 import * as rb from 'react-bootstrap';
@@ -32,19 +33,21 @@ export default class Login extends Component {
     let email = document.getElementById('signup-email').value;
     let pw = document.getElementById('signup-pw').value;
 
-    fetch(getURL() + '/createprofile', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        email: email,
-        password: pw,
-      })
-    }).then(r => {
-      console.log(r);
-    }).catch(e => {
-      console.log(e);
-    });
+    LoginService.createProfile(email, pw);
+
+    // fetch(getURL() + '/createprofile', {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   headers: {'Content-Type': 'application/json'},
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: pw,
+    //   })
+    // }).then(r => {
+    //   console.log(r);
+    // }).catch(e => {
+    //   console.log(e);
+    // });
   }
 
   render() {
@@ -84,7 +87,7 @@ export default class Login extends Component {
                 <rb.Form.Label>Password:</rb.Form.Label>
                 <rb.Form.Control id='signup-pw' placeholder='Password' type='password' />
               </rb.Form.Group>
-              <rb.Button onClick={() => this.submitLogin()}>Sign Up</rb.Button>
+              <rb.Button onClick={() => this.submitSignup()}>Sign Up</rb.Button>
             </rb.Form>
           </div>
         </div>

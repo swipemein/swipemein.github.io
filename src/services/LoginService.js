@@ -1,95 +1,41 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import { getURL } from '../Utils';
+// import { getURL } from '../Utils';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDAVAezS1NPeLwvjW_Ldx3NYbSsWzdTGPg",
+  authDomain: "swipemein-storage.firebaseapp.com",
+  projectId: "swipemein-storage",
+  storageBucket: "swipemein-storage.appspot.com",
+  messagingSenderId: "810938213396",
+  appId: "1:810938213396:web:44f1aff1b0f0b3a3553301",
+  measurementId: "G-E7QJK7RDFJ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
 
 class LoginService {
-  static clientID = "1f9c2c3c-b83e-430d-9420-d9181c7a7904";
-  static responseType = "code";
-  static scope = "openid profile email";
-  static redirectURI = "https://swipemein.github.io/";
-  // static redirectURI = getURL() + "/token";
 
-  // Get url to redirect to OIDC to authenticate
-  static getRedirectUrl() {
-    let url = "https://oidc.mit.edu/authorize?response_type=code";
-    
-    let params = [
-      ["client_id", this.clientID],
-      // ["response_type", this.responseType],
-      ["redirect_uri", this.redirectURI],
-      ["scope", this.scope],
-    ];
-
-    params.forEach(param => {
-      let label = param[0], value = param[1];
-      url += "&" + label + "=" + value;
-    });
-    return url;
-  }
-
-  // Log in with code returned from OIDC
-  static login(code) {
-    console.log(code);
-    fetch(getURL() + '/token?code=' + code).then(
-			response => response.json()
-		).then(data => console.log(data));
+  static createProfile(email, password) {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   
-  static requestToken(code) {
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => this.receiveToken(xhr);
-  
-    xhr.open("POST", "https://oidc.mit.edu/token");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.responseType = "json";
-  
-    let body = "grant_type=authorization_code";
-    body += "&code=" + code;
-    body += "&redirect_uri=https://swipemein.github.io/";
-    body += "&client_id=8fbfe55e-51b6-40df-a8e2-0a38690e2a9f";
-    body += "&client_secret=D1vTFSOtY8zdbsiliGbDWf8tJCMtJ7IWPkLyROnp4yxhgpQWqeBRQWGRjj6NEFl_M4dt5k9dvgAA8k4v2poWxQ";
-  
-    xhr.send(body);
-  }
-
-  static receiveToken(xhrResponse) {
-    if (xhrResponse.readyState === XMLHttpRequest.DONE) {
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = () => this.getUserInfo(xhr);
-
-      xhr.open("GET", "https://oidc.mit.edu/userinfo");
-      xhr.setRequestHeader("Authorization", "Bearer " + xhrResponse.response["access_token"]);
-      xhr.responseType = "json";
-
-      xhr.send();
-    }
-  }
-
-  static getUserInfo(xhrResponse) {
-    if (xhrResponse.readyState === XMLHttpRequest.DONE) {
-      let resp = xhrResponse.response;
-      // let db = fb.firestore();
-      // let userDocRef = db.collection('users').doc(resp['sub']);
-      localStorage.setItem(process.env.REACT_APP_SUB_ID, resp['sub']);
-
-      // userDocRef.get().then((doc) => {
-      //   if (!doc.exists) {
-      //     console.log(resp);
-      //     console.log('does not exist');
-      //     doc.set({
-      //       email: resp['email'],
-      //       name: resp['name'],
-      //       anon: false,
-      //       reputation: 1
-      //       // swipes listed (empty)
-      //       // swipes claimed (empty)
-      //     });
-      //   }
-      // });
-      window.location.reload();
-    }
-  }
-
   static logOut() {
     localStorage.removeItem(process.env.REACT_APP_SUB_ID);
   }
