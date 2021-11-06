@@ -19,8 +19,8 @@ export default class SwipeNav extends Component {
     } else {
       navbarItems = (
         <>
-          {/* <rb.Nav.Link href='/#/dashboard'>Dashboard</rb.Nav.Link>
-          <rb.Nav.Link href='/#/profile'>Profile</rb.Nav.Link> */}
+          <rb.Nav.Link href='/#/dashboard'>Dashboard</rb.Nav.Link>
+          <rb.Nav.Link href='/#/profile'>Profile</rb.Nav.Link>
           <rb.Nav.Link href='/' onClick={() => LoginService.logOut()}>Logout</rb.Nav.Link>
         </>
       );
