@@ -1,6 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-// import { getURL } from '../Utils';
+import { getURL } from '../Utils';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
@@ -31,9 +31,21 @@ class LoginService {
       .then((userCredential) => {
         const token = userCredential._tokenResponse.idToken;
         LoginService.storeToken(token);
+        fetch(
+          getURL() + '/addUser',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': LoginService.getToken()
+            },
+          }
+        ).catch(error => {
+          alert('Error inserting into database.');
+        });
       })
       .catch((error) => {
-        console.log(error);
+        alert('Error creating user.');
       });
   }
 
