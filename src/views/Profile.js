@@ -18,6 +18,8 @@ export default class Profile extends Component {
       name: '',
       email: '',
       socialPreference: '',
+      passwordButtonText: 'Submit New Password',
+      profileButtonText: 'Submit Profile Changes',
       ownedSwipes: null,
       claimedSwipes: null,
     }
@@ -41,7 +43,9 @@ export default class Profile extends Component {
 			}
     ).then(() => {
       passwordInput.value = '';
-      passwordInput.placeholder = 'Password changed successfully!';
+      this.setState({
+        passwordButtonText: 'Password Change Successful!'
+      })
     }).catch(() => {
       alert('Error changing password.');
     });
@@ -83,18 +87,31 @@ export default class Profile extends Component {
           <div className='container'>
             <h5>Info</h5>
             <div className='container'>
-              <rb.Form>
-                <rb.Form.Group>
-                  <rb.Form.Label>Email:</rb.Form.Label>
-                  <rb.Form.Control type="email" placeholder='<kerb>@mit.edu' disabled />
-                </rb.Form.Group>
-                <rb.Form.Group>
-                  <rb.Form.Label>Change Password</rb.Form.Label>
-                  <rb.Form.Control id='newpassword' type='password' placeholder='New Password' />
-                </rb.Form.Group>
-                <rb.Button onClick={() => this.changePassword()}>Submit New Password</rb.Button>
-              </rb.Form>
+              <rb.Form.Group>
+                <rb.Form.Label>Name:</rb.Form.Label>
+                <rb.Form.Control type="text" defaultValue={this.state.name} />
+              </rb.Form.Group>
+  
+              <rb.Form.Group>
+                <rb.Form.Label>Email:</rb.Form.Label>
+                <rb.Form.Control type="email" placeholder={this.state.email} disabled />
+              </rb.Form.Group>
+              
+              <rb.Form.Group>
+                <rb.Form.Label>Social Preferences:</rb.Form.Label>
+                <rb.Form.Control type="text" defaultValue={this.state.socialPreference} />
+              </rb.Form.Group>
+              <rb.Button>{this.state.profileButtonText}</rb.Button>
             </div>
+            <br/>
+            <h5>Change Password</h5>
+            <div className='container'>
+              <rb.Form.Group>
+                <rb.Form.Control id='newpassword' type='password' placeholder='New Password' />
+              </rb.Form.Group>
+              <rb.Button onClick={() => this.changePassword()}>{this.state.passwordButtonText}</rb.Button>
+            </div>
+            <br/>
             <div className='container row' id='profilefooter'>
 
               <div className='col-xs-4'>
