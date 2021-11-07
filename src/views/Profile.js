@@ -22,7 +22,8 @@ export default class Profile extends Component {
   }
 
   async changePassword() {
-    const newPassword = document.getElementById('newpassword').value;
+    const passwordInput = document.getElementById('newpassword');
+    const newPassword = passwordInput.value;
     console.log(newPassword);
     fetch(
       getURL() + '/changePassword',
@@ -36,8 +37,11 @@ export default class Profile extends Component {
           newPassword: newPassword,
         })
 			}
-    ).then(r => {
-      console.log('success');
+    ).then(() => {
+      passwordInput.value = '';
+      passwordInput.placeholder = 'Password changed successfully!';
+    }).catch(() => {
+      alert('Error changing password.');
     });
   }
 
