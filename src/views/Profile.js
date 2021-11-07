@@ -15,7 +15,9 @@ export default class Profile extends Component {
     super(props);
 
     this.state = {
-      student: {},
+      name: '',
+      email: '',
+      socialPreference: '',
       ownedSwipes: null,
       claimedSwipes: null,
     }
@@ -43,6 +45,26 @@ export default class Profile extends Component {
     }).catch(() => {
       alert('Error changing password.');
     });
+  }
+
+  componentDidMount() {
+    fetch(
+      getURL() + '/getUser',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': LoginService.getToken()
+        },
+      }
+    ).then(r => r.json()).then(r => {
+      const userData = r.userData;
+      this.setState({
+        name: userData.firstName,
+        email: userData.email,
+        socialPreference: userData.socialPreference,
+      });
+    })
   }
 
   render() {
