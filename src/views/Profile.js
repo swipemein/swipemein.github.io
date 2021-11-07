@@ -25,10 +25,34 @@ export default class Profile extends Component {
     }
   }
 
+  async updateProfile() {
+    const newName = document.getElementById('nameinput').value;
+    const newSocialPreference = document.getElementById('socialpreferenceinput').value;
+    fetch(
+      getURL() + '/updateUser',
+      {        
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				},
+        body: JSON.stringify({
+          firstName: newName,
+          socialPreference: newSocialPreference,
+        })
+      }
+    ).then(() => {
+      this.setState({
+        profileButtonText: 'Profile Change Successful!'
+      })
+    }).catch(error => {
+      alert('Error changing profile.');
+    })
+  }
+
   async changePassword() {
     const passwordInput = document.getElementById('newpassword');
     const newPassword = passwordInput.value;
-    console.log(newPassword);
     fetch(
       getURL() + '/changePassword',
 			{
@@ -76,7 +100,6 @@ export default class Profile extends Component {
       return LoginService.redirectLogin();
     }
 
-    // let student = this.state.student;
     return (
       <div>
         <SwipeNav />
@@ -89,7 +112,7 @@ export default class Profile extends Component {
             <div className='container'>
               <rb.Form.Group>
                 <rb.Form.Label>Name:</rb.Form.Label>
-                <rb.Form.Control type="text" defaultValue={this.state.name} />
+                <rb.Form.Control id='nameinput' type="text" defaultValue={this.state.name} />
               </rb.Form.Group>
   
               <rb.Form.Group>
@@ -99,9 +122,9 @@ export default class Profile extends Component {
               
               <rb.Form.Group>
                 <rb.Form.Label>Social Preferences:</rb.Form.Label>
-                <rb.Form.Control type="text" defaultValue={this.state.socialPreference} />
+                <rb.Form.Control id='socialpreferenceinput' type="text" defaultValue={this.state.socialPreference} />
               </rb.Form.Group>
-              <rb.Button>{this.state.profileButtonText}</rb.Button>
+              <rb.Button onClick={() => this.updateProfile()}>{this.state.profileButtonText}</rb.Button>
             </div>
             <br/>
             <h5>Change Password</h5>
