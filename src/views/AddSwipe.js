@@ -12,12 +12,12 @@ export default class AddSwipe extends Component {
 
   submitForm(event) {
     event.preventDefault();
-    document.getElementById('submitbutton').disabled = true;
 
     let form = {};
-    ['swipedininghall', 'swipedate', 'swipetime'].forEach(key => {
+    ['swipedininghall', 'swipedate', 'swipetime', 'swipeprice'].forEach(key => {
       form[key] = document.getElementById(key).value;
     });
+    console.log(form['swipeprice']);
     if (form['swipedate'] === "") {
       alert("Please enter the date of your swipe.");
       return;
@@ -26,6 +26,12 @@ export default class AddSwipe extends Component {
       alert("Please enter the time of your swipe.");
       return;
     }
+    if (form['swipeprice'] === "") {
+      alert("Please enter the price of your swipe.");
+      return;
+    }
+
+    document.getElementById('submitbutton').disabled = true;
     let swipeTime = Date.parse(form['swipedate'] + "T" + form['swipetime']);
 
     let swipe = {
@@ -34,6 +40,7 @@ export default class AddSwipe extends Component {
       location: form['swipedininghall'],
       ownedBy: null,
       swipeTime: swipeTime,
+      price: Number(form['swipeprice']),
     }
 
     fetch(
@@ -46,7 +53,6 @@ export default class AddSwipe extends Component {
 				}
 			}
     ).then(response => {
-      console.log(response.status);
       if (response.status === 500) {
         alert("Internal 500 error: couldn't add swipe.");
       } else if (response.status === 200) {
@@ -91,6 +97,12 @@ export default class AddSwipe extends Component {
                     <rb.Form.Group>
                       <rb.Form.Label>Time</rb.Form.Label>
                       <rb.Form.Control type='time' id='swipetime' />
+                    </rb.Form.Group>
+                  </div>
+                  <div className='col-xs-4'>
+                    <rb.Form.Group>
+                      <rb.Form.Label>Price ($)</rb.Form.Label>
+                      <rb.Form.Control type='number' step='0.01' min='0' defaultValue='0' id='swipeprice' />
                     </rb.Form.Group>
                   </div>
                 </rb.Form.Row>
