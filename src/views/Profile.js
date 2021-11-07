@@ -4,6 +4,8 @@ import SwipeNav from '../components/Nav.js';
 // import Swipe from '../components/Swipe.js';
 import LoginService from '../services/LoginService';
 
+import { getURL } from '../Utils.js';
+
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,12 +21,32 @@ export default class Profile extends Component {
     }
   }
 
+  async changePassword() {
+    const newPassword = document.getElementById('newpassword').value;
+    console.log(newPassword);
+    fetch(
+      getURL() + '/changePassword',
+			{
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				},
+        body: JSON.stringify({
+          newPassword: newPassword,
+        })
+			}
+    ).then(r => {
+      console.log('success');
+    });
+  }
+
   render() {
     if (!LoginService.isLoggedIn()) {
       return LoginService.redirectLogin();
     }
 
-    let student = this.state.student;
+    // let student = this.state.student;
     return (
       <div>
         <SwipeNav />
@@ -37,18 +59,14 @@ export default class Profile extends Component {
             <div className='container'>
               <rb.Form>
                 <rb.Form.Group>
-                  <rb.Form.Label>Name:</rb.Form.Label>
-                  <rb.Form.Control placeholder={student.name} />
+                  <rb.Form.Label>Email:</rb.Form.Label>
+                  <rb.Form.Control type="email" placeholder='<kerb>@mit.edu' disabled />
                 </rb.Form.Group>
                 <rb.Form.Group>
-                  <rb.Form.Label>Email:</rb.Form.Label>
-                  <rb.Form.Control type="email" placeholder={student.email} />
+                  <rb.Form.Label>Change Password</rb.Form.Label>
+                  <rb.Form.Control id='newpassword' type='password' placeholder='New Password' />
                 </rb.Form.Group>
-                {/* <rb.Form.Group>
-                  <rb.Form.Label>Anonymity:</rb.Form.Label>
-                  <rb.Form.Check type='switch' label='Anonymous - swipers will not see your name when you claim or advertise a swipe.'
-                    defaultValue={student.anon} />
-                </rb.Form.Group> */}
+                <rb.Button onClick={() => this.changePassword()}>Submit New Password</rb.Button>
               </rb.Form>
             </div>
             <div className='container row' id='profilefooter'>
