@@ -38,6 +38,28 @@ export default class SwipeView extends Component {
     );
   }
 
+  claimSwipe(swipe, event) {
+    event.preventDefault();
+    fetch(
+      getURL() + '/claimSwipe?id=' + swipe.id,
+			{
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(response => {
+      if (response.status === 500) {
+        alert("Internal 500 error: couldn't claim swipe.");
+      } else if (response.status === 200) {
+        alert("Swipe claimed successfully!");
+      } else {
+        alert("Unknown response status: " + response.status);
+      }
+    });
+  }
+
   render() {
     if (!LoginService.isLoggedIn()) {
       return LoginService.redirectLogin();
@@ -62,7 +84,7 @@ export default class SwipeView extends Component {
                       Status: {swipe.active ? "Active" : "Inactive"}
                     </li>
                   </ul>
-                  <rb.Button>Claim Swipe</rb.Button>
+                  <rb.Button onClick={e => this.claimSwipe(swipe, e)}>Claim Swipe</rb.Button>
                 </rb.Card.Body>
               </rb.Card>
             )
