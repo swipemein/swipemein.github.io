@@ -39,6 +39,10 @@ nav {
     color: black;
 }
 
+.card-body {
+    padding: 15px 20px 15px 20px;
+}
+
 .card-body > a {
     color: rgb(196, 30, 58);
     margin: 1rem;
@@ -152,4 +156,19 @@ body {
     width: fit-content;
     /* align-items: center; */
     /* justify-content: center; */
+}
+
+.claimSwipeArea {
+    display: flex;
+}
+
+.swipeText {
+    text-align: right;
+    vertical-align: middle;
+}
+
+@media (max-width: 480px) {
+    .swipeText {
+        text-align: left;
+    }
 }

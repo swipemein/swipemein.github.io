@@ -27,15 +27,16 @@ export default class Swipe extends Component {
                 </div>
                 <div className='row'>
                   <rb.Card.Subtitle className='col'>{getTimeString(swipe.swipeTime)}</rb.Card.Subtitle>
-                  <rb.Card.Text className='col text-right'>
+                  <rb.Card.Text className='col swipeText'>
                     {swipe.ownedBy.firstName}, {swipe.ownedBy.email}
                   </rb.Card.Text>
                 </div>
                 <div className='row'>
-                  <div className='col'>
+                  <div className='col claimSwipeArea'>
                     <rb.Button>Claim Swipe</rb.Button>
+                    <rb.Nav.Link href={'/#/swipeinfo/'+swipe.id}>Info</rb.Nav.Link>
                   </div>
-                  <rb.Card.Text className='col text-right'>
+                  <rb.Card.Text className='col swipeText'>
                     Social Preference: {swipe.ownedBy.socialPreference}
                   </rb.Card.Text>
                 </div>
