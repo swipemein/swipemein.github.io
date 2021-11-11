@@ -15,6 +15,7 @@ export default class Dashboard extends Component {
 		super(props);
 		this.state = {
 			swipes: [],
+			loading: false,
 		};
 	}
 
@@ -32,6 +33,9 @@ export default class Dashboard extends Component {
 	}
 
 	getSwipes(form={}) {
+		this.setState({
+			loading: true,
+		});
 		fetch(
 			getURL() + '/getswipes?filters=' + JSON.stringify(form),
 			{
@@ -49,6 +53,7 @@ export default class Dashboard extends Component {
 			);
 			this.setState({
 				swipes: swipes,
+				loading: false,
 			});
 		});
 	}
@@ -111,7 +116,7 @@ export default class Dashboard extends Component {
 					</div>
 				</div>
 				<div className='container'>
-					{swipes.length === 0 ? 'loading' : swipes}
+					{this.state.loading ? 'loading' : (swipes.length === 0 ? 'No swipes available.' : swipes)}
 				</div>
 			</>
 		);
