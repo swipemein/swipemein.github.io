@@ -15,6 +15,7 @@ export default class Swipe extends Component {
 
   render() {
     let swipe = this.state.swipe;
+    console.log(swipe);
     return (
       <div className='swipecard container'>
         <div className='col-xs-4'>
@@ -33,7 +34,15 @@ export default class Swipe extends Component {
                 </div>
                 <div className='row'>
                   <div className='col claimSwipeArea'>
-                    <rb.Button>Claim Swipe</rb.Button>
+                    {
+                      swipe.claimedBy.id === 'null' ? 
+                      (
+                        <rb.Button>Claim Swipe</rb.Button>
+
+                      ) : (
+                        <rb.Button disabled>Swipe Claimed</rb.Button>
+                      )
+                    }
                     <rb.Nav.Link href={'/#/swipeinfo/'+swipe.id}>Info</rb.Nav.Link>
                   </div>
                   <rb.Card.Text className='col swipeText'>
