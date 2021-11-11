@@ -54,11 +54,13 @@ export default class Swipe extends Component {
     ).then(response => {
       if (response.status === 500) {
         alert("Internal 500 error: couldn't claim swipe.");
+        return null;
       } else if (response.status !== 200) {
         alert("Unknown response status: " + response.status);
       }
       return response.json();
     }).then(data => {
+        if (data === null) return;
         this.setState({
           swipe: data,
         });
