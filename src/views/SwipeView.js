@@ -37,29 +37,7 @@ export default class SwipeView extends Component {
       }
     );
   }
-
-  claimSwipe(swipe, event) {
-    event.preventDefault();
-    fetch(
-      getURL() + '/claimSwipe?id=' + swipe.id,
-			{
-        method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': LoginService.getToken()
-				}
-			}
-    ).then(response => {
-      if (response.status === 500) {
-        alert("Internal 500 error: couldn't claim swipe.");
-      } else if (response.status === 200) {
-        alert("Swipe claimed successfully!");
-      } else {
-        alert("Unknown response status: " + response.status);
-      }
-    });
-  }
-
+  
   render() {
     if (!LoginService.isLoggedIn()) {
       return LoginService.redirectLogin();
