@@ -30,7 +30,8 @@ class LoginService {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const token = userCredential._tokenResponse.idToken;
-        LoginService.storeToken(token);
+        const uid = userCredential.user.uid;
+        LoginService.storeToken(token, uid);
         fetch(
           getURL() + '/addUser',
           {
@@ -53,7 +54,8 @@ class LoginService {
     await signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const token = userCredential._tokenResponse.idToken;
-      LoginService.storeToken(token);
+      const uid = userCredential.user.uid;
+      LoginService.storeToken(token, uid);
     })
     .catch((error) => {
       console.log(error);
@@ -71,17 +73,23 @@ class LoginService {
   static isLoggedIn() {
     return LoginService.getToken() !== undefined && LoginService.getToken() !== null;
   }
-
-  static storeToken(token) {
+  
+  static storeToken(token, uid) {
     localStorage.setItem('idToken', token);
+    localStorage.setItem('uid', uid);
   }
 
   static removeToken() {
     localStorage.removeItem('idToken');
+    localStorage.removeItem('uid');
   }
 
   static getToken() {
     return localStorage.getItem('idToken');
+  }
+
+  static getUID() {
+    return localStorage.getItem('uid');
   }
 
   static redirectLogin() {
