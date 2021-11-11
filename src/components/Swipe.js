@@ -14,19 +14,32 @@ export default class Swipe extends Component {
   }
 
   render() {
-    let swipe = this.state.swipe
+    let swipe = this.state.swipe;
     return (
       <div className='swipecard container'>
         <div className='col-xs-4'>
           <rb.Card>
             <rb.Card.Body>
-              <rb.Card.Title>{swipe.location}</rb.Card.Title>
-              <rb.Card.Subtitle>{getTimeString(swipe.swipeTime)}</rb.Card.Subtitle>
-              <rb.Card.Text>
-
-              </rb.Card.Text>
-              <rb.Button>Claim Swipe</rb.Button>
-              <rb.Card.Link href={'/#/swipeinfo/' + swipe.id}>Info</rb.Card.Link>
+              <div>
+                <div className='row'>
+                  <rb.Card.Title className='col'>{swipe.location}</rb.Card.Title>
+                  <rb.Card.Title className='col text-right'>${swipe.price}</rb.Card.Title>
+                </div>
+                <div className='row'>
+                  <rb.Card.Subtitle className='col'>{getTimeString(swipe.swipeTime)}</rb.Card.Subtitle>
+                  <rb.Card.Text className='col text-right'>
+                    {swipe.ownedBy.firstName}, {swipe.ownedBy.email}
+                  </rb.Card.Text>
+                </div>
+                <div className='row'>
+                  <div className='col'>
+                    <rb.Button>Claim Swipe</rb.Button>
+                  </div>
+                  <rb.Card.Text className='col text-right'>
+                    Social Preference: {swipe.ownedBy.socialPreference}
+                  </rb.Card.Text>
+                </div>
+              </div>
             </rb.Card.Body>
           </rb.Card>
         </div>
