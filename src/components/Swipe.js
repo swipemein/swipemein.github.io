@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getTimeString } from '../Utils.js';
+import { getTimeString, getURL } from '../Utils.js';
 import LoginService from '../services/LoginService.js';
 
 export default class Swipe extends Component {
@@ -14,12 +14,38 @@ export default class Swipe extends Component {
     }
   }
 
+  async claimSwipe(swipe, event) {
+    event.preventDefault();
+    fetch(
+      getURL() + '/claimSwipe?id=' + swipe.id,
+			{
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(response => {
+      if (response.status === 500) {
+        alert("Internal 500 error: couldn't claim swipe.");
+      } else if (response.status !== 200) {
+        alert("Unknown response status: " + response.status);
+      }
+      return response.json();
+    }).then(data => {
+        this.setState({
+          swipe: data,
+        });
+      }
+    );
+  }
+
   render() {
     let swipe = this.state.swipe;
 
     let claimSwipeButton;
     if (swipe.claimedBy.id === 'null') {
-      claimSwipeButton = (<rb.Button>Claim Swipe</rb.Button>);
+      claimSwipeButton = (<rb.Button onClick={e => this.claimSwipe(swipe, e)}>Claim Swipe</rb.Button>);
     } else if (swipe.claimedBy.id === LoginService.getUID()) {
       claimSwipeButton = (<rb.Button className='cancelClaimBtn'>Cancel Claim</rb.Button>)
     } else {
