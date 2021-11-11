@@ -4,10 +4,11 @@ import SwipeNav from '../components/Nav.js';
 // import Swipe from '../components/Swipe.js';
 import LoginService from '../services/LoginService';
 
-import { getURL } from '../Utils.js';
+import { getURL, sortBySwipeTime } from '../Utils.js';
 
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swipe from '../components/Swipe.js';
 
 export default class Profile extends Component {
 
@@ -75,6 +76,31 @@ export default class Profile extends Component {
     });
   }
 
+  async getUserOwnedSwipes() {
+    fetch(
+      getURL() + '/userOwnedSwipes?id=' + LoginService.getUID(),
+			{
+        method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(
+      r => r.json()
+    ).then(data => {
+			let swipeDatas = sortBySwipeTime(Object.values(data));
+			let swipes = swipeDatas.map(
+				swipeData => <Swipe swipe={swipeData} key={swipeData.id} />
+			);
+			this.setState({
+				ownedSwipes: swipes,
+			});
+    }).catch(r => {
+      alert("Error getting user owned swipes. Status code: " + r.status);
+    })
+  }
+
   componentDidMount() {
     fetch(
       getURL() + '/getUser',
@@ -92,7 +118,8 @@ export default class Profile extends Component {
         email: userData.email,
         socialPreference: userData.socialPreference,
       });
-    })
+    });
+    this.getUserOwnedSwipes();
   }
 
   render() {
@@ -138,14 +165,14 @@ export default class Profile extends Component {
             <div className='container row' id='profilefooter'>
 
               <div className='col-xs-4'>
-                <h5>Your swipes</h5>
+                <h5>Swipes you own:</h5>
                 <div className='container'>
                   {this.state.ownedSwipes ?? 'None'}
                 </div>
               </div>
 
               <div className='col-xs-4'>
-                <h5>Swipes you've claimed</h5>
+                <h5>Swipes you've claimed:</h5>
                 <div className='container'>
                   {this.state.claimedSwipes ?? 'None'}
                 </div>
