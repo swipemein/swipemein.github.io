@@ -35,6 +35,11 @@ nav {
     border-color: grey;
 }
 
+.cancelClaimBtn {
+    background-color: white;
+    color: rgb(196, 30, 58);
+}
+
 .card-subtitle {
     color: black;
 }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getTimeString } from '../Utils.js';
+import LoginService from '../services/LoginService.js';
 
 export default class Swipe extends Component {
 
@@ -15,7 +16,16 @@ export default class Swipe extends Component {
 
   render() {
     let swipe = this.state.swipe;
-    console.log(swipe);
+
+    let claimSwipeButton;
+    if (swipe.claimedBy.id === 'null') {
+      claimSwipeButton = (<rb.Button>Claim Swipe</rb.Button>);
+    } else if (swipe.claimedBy.id === LoginService.getUID()) {
+      claimSwipeButton = (<rb.Button className='cancelClaimBtn'>Cancel Claim</rb.Button>)
+    } else {
+      claimSwipeButton = (<rb.Button disabled>Swipe Claimed</rb.Button>);
+    }
+
     return (
       <div className='swipecard container'>
         <div className='col-xs-4'>
@@ -34,15 +44,7 @@ export default class Swipe extends Component {
                 </div>
                 <div className='row'>
                   <div className='col claimSwipeArea'>
-                    {
-                      swipe.claimedBy.id === 'null' ? 
-                      (
-                        <rb.Button>Claim Swipe</rb.Button>
-
-                      ) : (
-                        <rb.Button disabled>Swipe Claimed</rb.Button>
-                      )
-                    }
+                    {claimSwipeButton}
                     <rb.Nav.Link href={'/#/swipeinfo/'+swipe.id}>Info</rb.Nav.Link>
                   </div>
                   <rb.Card.Text className='col swipeText'>
