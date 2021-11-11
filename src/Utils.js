@@ -4,8 +4,8 @@ export const getTimeString = swipeTime => {
 }
 
 export const getURL = () => {
-  return "http://localhost:5000";
-  // return "https://swipemein.herokuapp.com";
+  // return "http://localhost:5000";
+  return "https://swipemein.herokuapp.com";
 }
 
 export const sortBySwipeTime = swipeDatas => {
