@@ -77,8 +77,11 @@ export default class Profile extends Component {
   }
 
   async getUserOwnedSwipes() {
+    this.setState({
+      ownedSwipes: null,
+    });
     fetch(
-      getURL() + '/userOwnedSwipes?id=' + LoginService.getUID(),
+      getURL() + '/userOwnedSwipes',
 			{
         method: 'GET',
 				headers: {
@@ -98,7 +101,35 @@ export default class Profile extends Component {
 			});
     }).catch(r => {
       alert("Error getting user owned swipes. Status code: " + r.status);
-    })
+    });
+  }
+
+  async getUserClaimedSwipes() {
+    this.setState({
+      claimedSwipes: null,
+    });
+    fetch(
+      getURL() + '/userClaimedSwipes',
+			{
+        method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(
+      r => r.json()
+    ).then(data => {
+			let swipeDatas = sortBySwipeTime(Object.values(data));
+			let swipes = swipeDatas.map(
+				swipeData => <Swipe swipe={swipeData} key={swipeData.id} />
+			);
+			this.setState({
+				claimedSwipes: swipes,
+			});
+    }).catch(r => {
+      alert("Error getting user claimed swipes. Status code: " + r.status);
+    });
   }
 
   componentDidMount() {
@@ -120,13 +151,16 @@ export default class Profile extends Component {
       });
     });
     this.getUserOwnedSwipes();
+    this.getUserClaimedSwipes();
   }
 
   render() {
     if (!LoginService.isLoggedIn()) {
       return LoginService.redirectLogin();
     }
-
+    
+    const ownedSwipes = this.state.ownedSwipes;
+    const claimedSwipes = this.state.claimedSwipes;
     return (
       <div>
         <SwipeNav />
@@ -167,14 +201,14 @@ export default class Profile extends Component {
               <div className='col-xs-4'>
                 <h5>Swipes you own:</h5>
                 <div className='container'>
-                  {this.state.ownedSwipes ?? 'None'}
+                  {ownedSwipes === null ? "loading" : (ownedSwipes.length === 0 ? "None" : ownedSwipes)}
                 </div>
               </div>
 
               <div className='col-xs-4'>
                 <h5>Swipes you've claimed:</h5>
                 <div className='container'>
-                  {this.state.claimedSwipes ?? 'None'}
+                  {claimedSwipes === null ? "loading" : (claimedSwipes.length === 0 ? "None" : claimedSwipes)}
                 </div>
               </div>
 
