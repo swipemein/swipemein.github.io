@@ -196,16 +196,16 @@ export default class Profile extends Component {
               <rb.Button onClick={() => this.changePassword()}>{this.state.passwordButtonText}</rb.Button>
             </div>
             <br/>
-            <div className='container row' id='profilefooter'>
+            <div className='container row noPush' id='profilefooter'>
 
-              <div className='col-xs-4'>
+              <div className='col noPush'>
                 <h5>Swipes you own:</h5>
                 <div className='container'>
                   {ownedSwipes === null ? "loading" : (ownedSwipes.length === 0 ? "None" : ownedSwipes)}
                 </div>
               </div>
 
-              <div className='col-xs-4'>
+              <div className='col noPush'>
                 <h5>Swipes you've claimed:</h5>
                 <div className='container'>
                   {claimedSwipes === null ? "loading" : (claimedSwipes.length === 0 ? "None" : claimedSwipes)}

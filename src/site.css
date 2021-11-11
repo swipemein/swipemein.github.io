@@ -150,6 +150,11 @@ nav {
     width: 50%;
 }
 
+.noPush {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     color: grey;
     /* background-color: rgb(196, 30, 58, .9); */
