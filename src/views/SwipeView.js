@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import SwipeNav from '../components/Nav.js';
 import LoginService from '../services/LoginService';
 
-import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getTimeString, getURL } from '../Utils.js';
+import { getURL } from '../Utils.js';
+import Swipe from '../components/Swipe.js';
 
 export default class SwipeView extends Component {
   constructor(props) {
@@ -72,21 +72,7 @@ export default class SwipeView extends Component {
           <div className='col-xs-4'>
             {Object.entries(swipe).length === 0 ? ("loading") : 
             (
-              <rb.Card>
-                <rb.Card.Body>
-                  <rb.Card.Title>{swipe.location}</rb.Card.Title>
-                  <rb.Card.Subtitle>{getTimeString(swipe.swipeTime)}</rb.Card.Subtitle>
-                  <ul>
-                    <li>
-                      Owner: {swipe.ownedBy.firstName}
-                    </li>
-                    <li>
-                      Status: {swipe.active ? "Active" : "Inactive"}
-                    </li>
-                  </ul>
-                  <rb.Button onClick={e => this.claimSwipe(swipe, e)}>Claim Swipe</rb.Button>
-                </rb.Card.Body>
-              </rb.Card>
+              <Swipe swipe={swipe} />
             )
             }
           </div>
