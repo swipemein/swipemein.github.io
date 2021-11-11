@@ -11,6 +11,7 @@ export default class Swipe extends Component {
     super(props);
     this.state = {
       swipe: this.props.swipe,
+      deleted: false,
     }
   }
 
@@ -53,7 +54,7 @@ export default class Swipe extends Component {
 			}
     ).then(response => {
       if (response.status === 500) {
-        alert("Internal 500 error: couldn't claim swipe.");
+        alert("Internal 500 error: couldn't unclaim swipe.");
         return null;
       } else if (response.status !== 200) {
         alert("Unknown response status: " + response.status);
@@ -68,7 +69,36 @@ export default class Swipe extends Component {
     );
   }
 
+  async deleteSwipe(swipe, event) {
+    event.preventDefault();
+    fetch(
+      getURL() + '/deleteswipe?id=' + swipe.id,
+			{
+        method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': LoginService.getToken()
+				}
+			}
+    ).then(response => {
+      if (response.status === 500) {
+        alert("Internal 500 error: couldn't delete swipe.");
+        return;
+      } else if (response.status !== 200) {
+        alert("Unknown response status: " + response.status);
+      }
+      this.setState({
+        deleted: true,
+      });
+    });
+  }
+
   render() {
+
+    if (this.state.deleted) {
+      return (<></>);
+    }
+
     let swipe = this.state.swipe;
 
     let claimSwipeButton;
@@ -100,6 +130,10 @@ export default class Swipe extends Component {
                   <div className='col claimSwipeArea'>
                     {claimSwipeButton}
                     <rb.Nav.Link href={'/#/swipeinfo/'+swipe.id}>Info</rb.Nav.Link>
+                    {
+                      swipe.ownedBy.id === LoginService.getUID() && 
+                      <rb.Nav.Link onClick={e => this.deleteSwipe(swipe, e)}>Delete</rb.Nav.Link>
+                    }
                   </div>
                   <rb.Card.Text className='col swipeText'>
                     Social Preference: {swipe.ownedBy.socialPreference}
