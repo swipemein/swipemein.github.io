@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import logo from '../assets/smi-logo.png';
+
 import LoginService from '../services/LoginService';
 
 import * as rb from 'react-bootstrap';
@@ -28,7 +30,10 @@ export default class SwipeNav extends Component {
 
     return (
       <rb.Navbar>
-        <rb.Navbar.Brand href='/'>SwipeMeIn</rb.Navbar.Brand>
+        <rb.Navbar.Brand id='navbrand' href='/'>
+          <img src={logo} height='40' alt='asdf' />
+          <h5>SwipeMeIn</h5>
+        </rb.Navbar.Brand>
         <rb.Navbar.Collapse>
           <rb.Nav className='ml-auto'>
             {navbarItems}
