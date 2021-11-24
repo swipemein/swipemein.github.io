@@ -39,6 +39,12 @@ nav {
     padding-left: 10px;
 }
 
+@media (max-width: 480px) {
+    #navbrand > h5 {
+        display: none;
+    }
+}
+
 .btn-primary {
     background-color: rgb(196, 30, 58);
     border-color: rgb(196, 30, 58);
