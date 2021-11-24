@@ -161,6 +161,9 @@ export default class Profile extends Component {
     
     const ownedSwipes = this.state.ownedSwipes;
     const claimedSwipes = this.state.claimedSwipes;
+
+    if (ownedSwipes) ownedSwipes.reverse();
+    if (claimedSwipes) claimedSwipes.reverse();
     return (
       <div>
         <SwipeNav />
