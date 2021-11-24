@@ -5,6 +5,7 @@ import LoginService from '../services/LoginService';
 
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from '../components/Footer.js';
 
 export default class Home extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ export default class Home extends Component {
           </div>
 
         </div>
+        <Footer />
       </div>
     )
   }

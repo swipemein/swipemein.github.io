@@ -81,7 +81,7 @@ nav {
     background-image: url("./assets/housedining.jpg");
     background-size: cover;
     background-attachment: fixed;
-    height: calc(100vh - 56px);
+    height: 100%;
     width: 100%;
 }
 
@@ -90,6 +90,8 @@ nav {
     justify-content: center;
     align-items: center;
     height: 90%;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
 }
 
 .hometitle > h2 {
@@ -195,4 +197,20 @@ body {
     .swipeText {
         text-align: left;
     }
+}
+
+.footer {
+  width: 100%;
+  background-color: rgb(241, 241, 241);
+  color: grey;
+  text-align: center;
+  border-top: solid grey 1px;
+  font-size: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.footer > p {
+    margin: 0;
 }
