@@ -46,7 +46,7 @@ class LoginService {
         });
       })
       .catch((error) => {
-        alert('Error creating user.');
+        alert('Error creating user: ' + error.code);
       });
   }
 
@@ -58,7 +58,7 @@ class LoginService {
       LoginService.storeToken(token, uid);
     })
     .catch((error) => {
-      console.log(error);
+      alert('Error signing in: ' + error.code);
     });
   }
   
