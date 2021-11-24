@@ -8,7 +8,7 @@ import { diningHallStrings } from '../components/Constants.js';
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { getURL, sortBySwipeTime } from '../Utils.js';
+import { getURL, sortSwipes } from '../Utils.js';
 
 export default class Dashboard extends Component {
 	constructor(props) {
@@ -47,7 +47,7 @@ export default class Dashboard extends Component {
 		).then(
 			response => response.json()
 		).then(data => {
-			let swipeDatas = sortBySwipeTime(Object.values(data));
+			let swipeDatas = sortSwipes(Object.values(data));
 			let swipes = swipeDatas.map(
 				swipeData => <Swipe swipe={swipeData} key={swipeData.id} />
 			);
