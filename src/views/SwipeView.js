@@ -6,6 +6,7 @@ import LoginService from '../services/LoginService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getURL } from '../Utils.js';
 import Swipe from '../components/Swipe.js';
+import Footer from '../components/Footer.js';
 
 export default class SwipeView extends Component {
   constructor(props) {
@@ -55,6 +56,8 @@ export default class SwipeView extends Component {
             }
           </div>
         </div>
+        <div className='swipeViewBuffer'></div>
+        <Footer />
       </>
     );
   }

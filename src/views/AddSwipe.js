@@ -7,6 +7,7 @@ import { diningHallStrings } from '../components/Constants.js';
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getURL } from '../Utils.js';
+import Footer from '../components/Footer.js';
 
 export default class AddSwipe extends Component {
 
@@ -111,6 +112,7 @@ export default class AddSwipe extends Component {
             </rb.Card.Body>
           </rb.Card>
         </div>
+        <Footer />
       </>
     );
   }

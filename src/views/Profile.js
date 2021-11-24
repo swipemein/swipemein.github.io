@@ -9,6 +9,7 @@ import { getURL, sortBySwipeTime } from '../Utils.js';
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swipe from '../components/Swipe.js';
+import Footer from '../components/Footer.js';
 
 export default class Profile extends Component {
 
@@ -218,6 +219,7 @@ export default class Profile extends Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     )
   }

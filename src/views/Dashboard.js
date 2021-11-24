@@ -9,6 +9,7 @@ import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { getURL, sortSwipes } from '../Utils.js';
+import Footer from '../components/Footer.js';
 
 export default class Dashboard extends Component {
 	constructor(props) {
@@ -118,6 +119,7 @@ export default class Dashboard extends Component {
 				<div className='container'>
 					{this.state.loading ? 'loading' : (swipes.length === 0 ? 'No swipes available.' : swipes)}
 				</div>
+				<Footer />
 			</>
 		);
 	}

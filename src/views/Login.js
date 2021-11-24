@@ -8,6 +8,7 @@ import LoginService from '../services/LoginService.js';
 
 import * as rb from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from '../components/Footer.js';
 
 class Login extends Component {
 
@@ -73,6 +74,7 @@ class Login extends Component {
             </rb.Form>
           </div>
         </div>
+        <Footer />
 			</>
 		);
 	}
