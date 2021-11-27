@@ -30,6 +30,11 @@ class Login extends Component {
     this.props.history.push('/dashboard');
   }
 
+  async submitResetPassword() {
+    let email = document.getElementById('reset-pw-email').value;
+    await LoginService.resetPassword(email);
+  }
+
   render() {
     if (LoginService.isLoggedIn()) {
       return <Redirect to='/dashboard' />
@@ -71,6 +76,19 @@ class Login extends Component {
                 <rb.Form.Control id='signup-pw' placeholder='Password' type='password' />
               </rb.Form.Group>
               <rb.Button onClick={() => this.submitSignup()}>Sign Up</rb.Button>
+            </rb.Form>
+          </div>
+
+          <br/>
+          
+          <h5>Reset Password</h5>
+          <div className='loginform'>
+            <rb.Form>
+              <rb.Form.Group>
+                <rb.Form.Label>Email:</rb.Form.Label>
+                <rb.Form.Control id='reset-pw-email' placeholder="<kerb>@mit.edu" type='email' />
+              </rb.Form.Group>
+              <rb.Button onClick={() => this.submitResetPassword()}>Reset Password</rb.Button>
             </rb.Form>
           </div>
         </div>
