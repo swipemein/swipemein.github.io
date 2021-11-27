@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import { getURL } from '../Utils';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, getIdToken } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -23,6 +23,20 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const auth = getAuth();
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    getIdToken(user).then(idToken => {
+      if (idToken !== LoginService.getToken()) {
+        LoginService.changeToken(idToken);
+        window.location.reload();
+      }
+    }).catch((error) => {
+      LoginService.logOut();
+      alert('Error getting login: ' + error.code);
+    });
+  }
+});
 
 class LoginService {
 
@@ -77,6 +91,10 @@ class LoginService {
   static storeToken(token, uid) {
     localStorage.setItem('idToken', token);
     localStorage.setItem('uid', uid);
+  }
+
+  static changeToken(token) {
+    localStorage.setItem('idToken', token);
   }
 
   static removeToken() {
