@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 import { getURL } from '../Utils';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, getIdToken, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, getIdToken, sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -61,6 +61,16 @@ class LoginService {
       })
       .catch((error) => {
         alert('Error creating user: ' + error.code);
+      });
+  }
+
+  static async sendVerificationEmail() {
+    await sendEmailVerification(auth.currentUser)
+      .then(() => {
+        alert('A verification email has been sent.');
+      })
+      .catch((error) => {
+        alert('Error sending a verification email: ' + error.code);
       });
   }
 

@@ -22,6 +22,7 @@ export default class Profile extends Component {
       socialPreference: '',
       passwordButtonText: 'Submit New Password',
       profileButtonText: 'Submit Profile Changes',
+      sendVerificationEmail: 'Send Verification Email',
       ownedSwipes: null,
       claimedSwipes: null,
     }
@@ -149,6 +150,7 @@ export default class Profile extends Component {
         name: userData.firstName,
         email: userData.email,
         socialPreference: userData.socialPreference,
+        emailVerified: userData.emailVerified,
       });
     });
     this.getUserOwnedSwipes();
@@ -163,6 +165,14 @@ export default class Profile extends Component {
     const ownedSwipes = this.state.ownedSwipes;
     const claimedSwipes = this.state.claimedSwipes;
 
+    let emailVerificationText = "Loading...";
+
+    if (this.state.emailVerified === true) {
+      emailVerificationText = "Verified";
+    } else if (this.state.emailVerified === false) {
+      emailVerificationText = "Unverified";
+    }
+
     if (ownedSwipes) ownedSwipes.reverse();
     if (claimedSwipes) claimedSwipes.reverse();
     return (
@@ -173,6 +183,13 @@ export default class Profile extends Component {
         </div>
         <div className='container'>
           <div className='container'>
+            <h5>Account status</h5>
+            <div className='container'>
+              {emailVerificationText}
+              <br />
+              {this.state.emailVerified === false ? <rb.Button onClick={() => LoginService.sendVerificationEmail()}>{this.state.sendVerificationEmail}</rb.Button> : null }
+            </div>
+            <br/>
             <h5>Info</h5>
             <div className='container'>
               <rb.Form.Group>
