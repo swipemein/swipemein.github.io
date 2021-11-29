@@ -38,7 +38,7 @@ export default class Home extends Component {
               <div className='container'>
                 <p>We’ve all been there: it’s 7 PM, you’re on campus, and you’re hungry. You have two options: spend an absurd amount of money for on-campus dining or ask a friend to lend you a swipe.</p>
                 <p>With meal plan minimums increasing and limited swipe donation programs to take advantage of, countless students end each year with extra swipes that are wasted. SwipeMeIn is a platform for those with extra swipes to make the most of their surplus and the hungry to score a meal.</p>
-                <p>Note: no money is exchanged on the website - all monetary transactions take place between the swiper and the swipe claimer.</p>
+                <p>Note: no money is exchanged on the website - any monetary transactions take place only between the swiper and the swipe claimer.</p>
 
               </div>
               {/* <div className='homedirections container'>
