@@ -117,6 +117,10 @@ export default class Dashboard extends Component {
 					</div>
 				</div>
 				<div className='container'>
+					<br />
+					<b>Swipes more than 48 hours away won't be shown.</b>
+				</div>
+				<div className='container'>
 					{this.state.loading ? 'loading' : (swipes.length === 0 ? 'No swipes available.' : swipes)}
 				</div>
 				<Footer />
