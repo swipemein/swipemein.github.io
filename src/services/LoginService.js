@@ -51,7 +51,7 @@ class LoginService {
           {
             method: 'POST',
             headers: {
-              // 'Content-Type': 'application/json',
+              'Content-Type': 'text/plain',
               'Authorization': LoginService.getToken()
             },
           }
