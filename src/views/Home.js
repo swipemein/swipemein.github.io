@@ -70,14 +70,12 @@ export default class Home extends Component {
 class InfoCard extends Component {
   render() {
     return (
-      // <div className='col-xs-1'>
       <rb.Card>
         <rb.Card.Body>
-          <rb.Card.Title>{this.props.title}</rb.Card.Title>
+          <rb.Card.Title><a href='/#/login'>{this.props.title}</a></rb.Card.Title>
           <rb.Card.Text>{this.props.text}</rb.Card.Text>
         </rb.Card.Body>
       </rb.Card>
-      // </div>
     );
   }
 }
