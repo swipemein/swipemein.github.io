@@ -53,13 +53,13 @@ class LoginService {
         alert('Error creating user: ' + error.code);
       });
     
-    fetch(
+    await fetch(
       getURL() + '/addUser',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain',
-          'Authorization': LoginService.getToken()
+          'test': LoginService.getToken()
         },
       }
     ).catch(error => {

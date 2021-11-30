@@ -37,7 +37,7 @@ export default class Profile extends Component {
         method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': LoginService.getToken()
+					'test': LoginService.getToken()
 				},
         body: JSON.stringify({
           firstName: newName,
@@ -62,7 +62,7 @@ export default class Profile extends Component {
         method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': LoginService.getToken()
+					'test': LoginService.getToken()
 				},
         body: JSON.stringify({
           newPassword: newPassword,
@@ -88,7 +88,7 @@ export default class Profile extends Component {
         method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': LoginService.getToken()
+					'test': LoginService.getToken()
 				}
 			}
     ).then(
@@ -116,7 +116,7 @@ export default class Profile extends Component {
         method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': LoginService.getToken()
+					'test': LoginService.getToken()
 				}
 			}
     ).then(
@@ -141,7 +141,7 @@ export default class Profile extends Component {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': LoginService.getToken()
+          'test': LoginService.getToken()
         },
       }
     ).then(r => r.json()).then(r => {
