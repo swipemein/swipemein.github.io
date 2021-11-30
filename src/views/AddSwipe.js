@@ -18,7 +18,6 @@ export default class AddSwipe extends Component {
     ['swipedininghall', 'swipedate', 'swipetime', 'swipeprice'].forEach(key => {
       form[key] = document.getElementById(key).value;
     });
-    console.log(form['swipeprice']);
     if (form['swipedate'] === "") {
       alert("Please enter the date of your swipe.");
       return;
