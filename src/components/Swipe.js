@@ -100,6 +100,8 @@ export default class Swipe extends Component {
     }
 
     let swipe = this.state.swipe;
+    // console.log(swipe);
+    // return (<></>);
 
     let claimSwipeButton;
     if (swipe.claimedBy.id === 'null') {

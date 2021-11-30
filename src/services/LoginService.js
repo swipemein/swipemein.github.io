@@ -41,29 +41,33 @@ onAuthStateChanged(auth, user => {
 class LoginService {
 
   static async createProfile(email, password) {
+    let token;
+    let uid;
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const token = userCredential._tokenResponse.idToken;
-        const uid = userCredential.user.uid;
+        token = userCredential._tokenResponse.idToken;
+        uid = userCredential.user.uid;
         LoginService.storeToken(token, uid);
-        fetch(
-          getURL() + '/addUser',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'text/plain',
-              'Authorization': LoginService.getToken()
-            },
-          }
-        ).catch(error => {
-          // console.log(error);
-          // console.log(error.code);
-          alert('Error inserting into database.');
-        });
       })
       .catch((error) => {
         alert('Error creating user: ' + error.code);
       });
+    
+    fetch(
+      getURL() + '/addUser',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Authorization': LoginService.getToken()
+        },
+      }
+    ).catch(error => {
+      console.log(error);
+      console.log(error.code);
+      error.text().then(t => console.log(t));
+      alert('Error inserting into database.');
+    });
   }
 
   static async sendVerificationEmail() {
