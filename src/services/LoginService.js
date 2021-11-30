@@ -51,11 +51,13 @@ class LoginService {
           {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+              // 'Content-Type': 'application/json',
               'Authorization': LoginService.getToken()
             },
           }
         ).catch(error => {
+          // console.log(error);
+          // console.log(error.code);
           alert('Error inserting into database.');
         });
       })
