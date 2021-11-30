@@ -72,7 +72,7 @@ class Login extends Component {
                 <rb.Form.Control id='signup-email' placeholder="<kerb>@mit.edu" type='email' />
               </rb.Form.Group>
               <rb.Form.Group>
-                <rb.Form.Label>Password: (must be at least 8 characters long)</rb.Form.Label>
+                <rb.Form.Label>Password (must be at least 8 characters long):</rb.Form.Label>
                 <rb.Form.Control id='signup-pw' placeholder='Password' type='password' />
               </rb.Form.Group>
               <rb.Button onClick={() => this.submitSignup()}>Sign Up</rb.Button>

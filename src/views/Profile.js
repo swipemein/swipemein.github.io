@@ -203,7 +203,7 @@ export default class Profile extends Component {
               </rb.Form.Group>
               
               <rb.Form.Group>
-                <rb.Form.Label>Social Preferences:</rb.Form.Label>
+                <rb.Form.Label>Social Preferences (e.g. "let's eat together", "I prefer to eat alone"):</rb.Form.Label>
                 <rb.Form.Control id='socialpreferenceinput' type="text" defaultValue={this.state.socialPreference} />
               </rb.Form.Group>
               <rb.Button onClick={() => this.updateProfile()}>{this.state.profileButtonText}</rb.Button>
